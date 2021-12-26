@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="checklistViewModel"
+            type="ru.nsu.android.reminderVK.ui.checklist.ChecklistViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.checklist.ChecklistFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/items_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:scrollbars="none" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_list_item_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="@{() -> checklistViewModel.onFabButtonClicked()}"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/accent"
+            app:tint="@color/icons"
+            android:contentDescription="@string/fab_content_description" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

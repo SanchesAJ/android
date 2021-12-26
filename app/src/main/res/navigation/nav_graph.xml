@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/checklist">
+
+    <fragment
+        android:id="@+id/checklist"
+        android:name="ru.nsu.android.reminderVK.ui.checklist.ChecklistFragment"
+        android:label="Reminder List"
+        tools:layout="@layout/fragment_checklist">
+        <action
+            android:id="@+id/action_checklist_to_edit_item"
+            app:destination="@id/edit_item"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="deleted_description"
+            android:defaultValue="default-nothing-deleted"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_checklist_to_about"
+            app:destination="@id/about" />
+<!--            app:enterAnim="@anim/fragment_open_enter"-->
+<!--            app:exitAnim="@anim/fragment_close_exit"-->
+<!--            app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+<!--            app:popExitAnim="@anim/nav_default_pop_exit_anim"-->
+    </fragment>
+    <fragment
+        android:id="@+id/edit_item"
+        android:name="ru.nsu.android.reminderVK.ui.edititem.EditItemFragment"
+        android:label="Edit Item"
+        tools:layout="@layout/fragment_edit_item">
+        <action
+            android:id="@+id/action_edit_item_to_checklist"
+            app:destination="@id/checklist"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="item_id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/about"
+        android:name="ru.nsu.android.reminderVK.ui.about.AboutFragment"
+        android:label="About" />
+</navigation>

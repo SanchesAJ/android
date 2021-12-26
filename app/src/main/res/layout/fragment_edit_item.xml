@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="ru.nsu.android.reminderVK.ui.edititem.EditItemViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/add_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_anchor="@+id/add_item_layout"
+            app:layout_anchorGravity="center"
+            tools:context=".ui.edititem.EditItemFragment">
+
+
+            <EditText
+                android:id="@+id/title_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/edit_title"
+                android:text="@={viewmodel.title}"
+                app:error="@{viewmodel.titleError}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/description_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="@string/edit_description"
+                android:text="@={viewmodel.description}"
+                app:error="@{viewmodel.descriptionError}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_alert"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:checked="@{viewmodel.scheduled}"
+                android:onClick="@{() -> viewmodel.toggleSchedule()}"
+                android:text="@string/edit_recurring"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_input"
+                tools:checked="true" />
+
+
+            <DatePicker
+                android:id="@+id/date_picker"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:spinnersShown="true"
+                app:layout_constraintTop_toBottomOf="@+id/time_picker"
+                tools:layout_editor_absoluteX="-8dp" />
+
+            <TimePicker
+                android:id="@+id/time_picker"
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:timePickerMode="spinner"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/divider"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="8dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switch_alert" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/save_item_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="@{() -> viewmodel.onFabButtonClicked()}"
+            android:src="@drawable/ic_done"
+            app:backgroundTint="@color/accent"
+            app:saveEnabled="@{viewmodel.saveButtonEnabled}"
+            app:tint="@color/icons"
+            android:contentDescription="@string/edit_fab_content_description" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
