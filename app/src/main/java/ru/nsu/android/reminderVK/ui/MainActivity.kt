@@ -13,6 +13,9 @@ import com.vk.api.sdk.auth.VKScope
 import com.vk.api.sdk.exceptions.VKAuthException
 import ru.nsu.android.reminderVK.R
 import ru.nsu.android.reminderVK.databinding.ActivityMainBinding
+import com.vk.api.sdk.utils.VKUtils
+import com.vk.api.sdk.utils.VKUtils.getCertificateFingerprint
+
 
 private lateinit var binding: ActivityMainBinding
 
@@ -23,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
+        VK.login(this, arrayListOf(VKScope.PHOTOS))
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -37,6 +40,22 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val callback = object: VKAuthCallback {
+            override fun onLogin(token: VKAccessToken) {
+               // TODO( User passed authorization)
+            }
+
+            override fun onLoginFailed(authException: VKAuthException) {
+                // TODO(User didn't pass authorization)
+                print(0)
+            }
+        }
+        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
 

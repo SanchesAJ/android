@@ -1,25 +1,38 @@
 package ru.nsu.android.reminderVK.util
 
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings.Global.getString
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.google.android.material.snackbar.Snackbar
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiCallback
 import com.vk.api.sdk.VKApiManager
 import com.vk.api.sdk.auth.VKAccessToken
+import com.vk.api.sdk.exceptions.VKApiExecutionException
+import com.vk.api.sdk.requests.VKRequest
 import com.vk.sdk.api.friends.dto.FriendsGetFieldsResponse
+import com.vk.sdk.api.groups.dto.GroupsGroupFull
 import com.vk.sdk.api.messages.MessagesService
+import com.vk.sdk.api.wall.WallService
+import com.vk.sdk.api.wall.dto.WallAppPost
+import com.vk.sdk.api.wall.dto.WallPostResponse
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.nsu.android.reminderVK.R
 import ru.nsu.android.reminderVK.data.db.ToDoItem
 import ru.nsu.android.reminderVK.ui.MainActivity
 import java.util.*
-import kotlin.random.Random
+
+
+
+
 
 
 class NotificationMaker {
@@ -40,11 +53,18 @@ class NotificationMaker {
             val token = VKAccessToken.KEYS[0]
 
             val mess = MessagesService()
-//            mess.messagesSend(userId = userId.value.toInt(), Random.nextInt(), message = "Hello world").execute()
-//
-//            VK.execute(MessagesService().messagesSend(userId = userId.value.toInt(), Random.nextInt(), message = "Hello world"),
-//                object: VKApiCallback<Messages>)
-//            )
+
+
+            VK.execute(WallService().wallPost(VK.getUserId(),true,message = "Hello world"),
+                object: VKApiCallback<WallPostResponse>{
+                    override fun fail(error: Exception) {
+                        showError(context,"Error: cant post remind on wall")
+                    }
+                    override fun success(result: WallPostResponse) {
+                        TODO("Not yet implemented")
+                    }
+                }
+            )
 
 
 
@@ -86,6 +106,13 @@ class NotificationMaker {
             with(NotificationManagerCompat.from(context)) {
                 notify(type, notification.build())
             }
+        }
+
+        private fun showError(context: Context, mes: String){
+            val duration = Toast.LENGTH_LONG
+
+            val toast = Toast.makeText(context, mes, duration)
+            toast.show()
         }
     }
 }
