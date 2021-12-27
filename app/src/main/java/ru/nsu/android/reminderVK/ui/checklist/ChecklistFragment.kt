@@ -122,16 +122,16 @@ class ChecklistFragment : Fragment() {
             this.findNavController().navigate(ChecklistFragmentDirections.actionChecklistToAbout())
             true
         }
-        R.id.launch_notifications -> {
-            val applicationScope = CoroutineScope(Dispatchers.IO)
-            val context = requireContext()
-            val toDoItemRepository = ToDoItemRepository(context)
-            applicationScope.launch {
-//                NotificationMaker.showVKNotification(context,
-//                    toDoItemRepository.getUncheckedItemCount())
-            }
-            true
-        }
+//        R.id.launch_notifications -> {
+//            val applicationScope = CoroutineScope(Dispatchers.IO)
+//            val context = requireContext()
+//            val toDoItemRepository = ToDoItemRepository(context)
+//            applicationScope.launch {
+////                NotificationMaker.showVKNotification(context,
+////                    toDoItemRepository.getUncheckedItemCount())
+//            }
+//            true
+//        }
         else -> super.onOptionsItemSelected(item)
     }
 

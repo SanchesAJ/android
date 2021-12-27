@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
+        //VK.login(this, arrayListOf(VKScope.WALL, VKScope.PHOTOS))
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -39,20 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val callback = object: VKAuthCallback {
-            override fun onLogin(token: VKAccessToken) {
-                // User passed authorization
-            }
-
-            override fun onLoginFailed(authException: VKAuthException) {
-                TODO("Not yet implemented")
-            }
-        }
-        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         // "If you do not have a DrawerLayout, you should call NavController.navigateUp() directly."
