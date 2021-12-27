@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        VK.login(this, arrayListOf(VKScope.PHOTOS))
+        VK.login(this, arrayListOf(VKScope.WALL))
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
